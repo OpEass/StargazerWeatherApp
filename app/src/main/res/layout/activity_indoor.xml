@@ -1,365 +1,788 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    android:background="#F5F7FA"
     android:fillViewport="true"
     tools:context=".IndoorActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:padding="20dp">
 
-        <!-- ================= HEADER ================= -->
+        <!-- ================= HEADER & TOMBOL KEMBALI ================= -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Kembali"
+            android:src="@drawable/ic_kembali"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#1E2330" />
+
         <TextView
             android:id="@+id/tvTitleIndoor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="Aktivitas Indoor"
-            android:textColor="#1A1A1A"
+            android:textColor="#1E2330"
             android:textSize="26sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnBack"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_media_previous"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTitleIndoor"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTitleIndoor"
-            app:tint="#1A1A1A" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
+        <!-- ================= KOLOM PENCARIAN ================= -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSearch"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#EAEFF5"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleIndoor">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="#8E8E93" />
+
+                <EditText
+                    android:id="@+id/etSearchActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="Cari Aktivitas"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textColor="#000000"
+                    android:textColorHint="#8E8E93"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ================= SEKSI 1: AKTIVITAS YANG DITAMBAHKAN ================= -->
         <TextView
-            android:id="@+id/tvSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Pilih atau hapus aktivitas indoor yang tampil di beranda."
-            android:textColor="#757575"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleIndoor" />
-
-
-        <!-- ================= GRID AKTIVITAS ================= -->
-        <LinearLayout
-            android:id="@+id/gridContainer"
-            android:layout_width="match_parent"
+            android:id="@+id/tvLabelAdded"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/tvSubtitle">
+            android:text="Aktivitas yang Ditambahkan"
+            android:textColor="#5A6B82"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardSearch" />
 
-            <!-- Baris 1: Yoga & Baca Buku -->
-            <LinearLayout
+        <!-- Kartu 1: Yoga -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardYoga"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelAdded">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent">
 
-                <!-- Card 1: Yoga -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardYoga"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/imgBgYoga"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_yoga" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14dp">
-
-                        <TextView
-                            android:id="@+id/tvYogaIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🧘 Yoga"
-                            android:textColor="#1A1A1A"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvYogaIcon"
-                            android:layout_marginTop="4dp"
-                            android:text="Aktif di beranda"
-                            android:textColor="#4CAF50"
-                            android:textSize="12sp" />
-
-                        <ImageButton
-                            android:id="@+id/btnToggleYoga"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@android:drawable/ic_menu_delete"
-                            app:tint="#E53935" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Card 2: Baca Buku -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardBacaBuku"
-                    android:layout_width="0dp"
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    android:background="#66000000" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
-                        <TextView
-                            android:id="@+id/tvBacaBukuIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📖 Baca Buku"
-                            android:textColor="#1A1A1A"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/iconYoga"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_yoga"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvBacaBukuIcon"
-                            android:layout_marginTop="4dp"
-                            android:text="Aktif di beranda"
-                            android:textColor="#4CAF50"
-                            android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvTitleYoga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Yoga"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconYoga"
+                        app:layout_constraintStart_toEndOf="@+id/iconYoga"
+                        app:layout_constraintTop_toTopOf="@+id/iconYoga" />
 
-                        <ImageButton
-                            android:id="@+id/btnToggleBacaBuku"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@android:drawable/ic_menu_delete"
-                            app:tint="#E53935" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/btnRemoveYoga"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Hapus Aktivitas"
+                        android:src="@drawable/ic_hapus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
 
-            <!-- Baris 2: Memasak & Menonton -->
-            <LinearLayout
+                    <ProgressBar
+                        android:id="@+id/progressYoga"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="80"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#00E676"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentYoga"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentYoga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="80%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 2: Baca Buku -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBacaBuku"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardYoga">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent">
 
-                <!-- Card 3: Memasak -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardMemasak"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/imgBgBacaBuku"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_bacabuku" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14dp">
-
-                        <TextView
-                            android:id="@+id/tvMemasakIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="👨‍🍳 Memasak"
-                            android:textColor="#1A1A1A"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvMemasakIcon"
-                            android:layout_marginTop="4dp"
-                            android:text="Aktif di beranda"
-                            android:textColor="#4CAF50"
-                            android:textSize="12sp" />
-
-                        <ImageButton
-                            android:id="@+id/btnToggleMemasak"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@android:drawable/ic_menu_delete"
-                            app:tint="#E53935" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Card 4: Menonton -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardMenonton"
-                    android:layout_width="0dp"
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    android:background="#66000000" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
-                        <TextView
-                            android:id="@+id/tvMenontonIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📺 Menonton"
-                            android:textColor="#1A1A1A"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/iconBacaBuku"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_membaca"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvMenontonIcon"
-                            android:layout_marginTop="4dp"
-                            android:text="Belum ditambahkan"
-                            android:textColor="#9E9E9E"
-                            android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvTitleBacaBuku"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Baca Buku"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconBacaBuku"
+                        app:layout_constraintStart_toEndOf="@+id/iconBacaBuku"
+                        app:layout_constraintTop_toTopOf="@+id/iconBacaBuku" />
 
-                        <ImageButton
-                            android:id="@+id/btnToggleMenonton"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@android:drawable/ic_input_add"
-                            app:tint="#2196F3" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/btnRemoveBacaBuku"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Hapus Aktivitas"
+                        android:src="@drawable/ic_hapus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
 
-            <!-- Baris 3: Musik & Melukis -->
-            <LinearLayout
+                    <ProgressBar
+                        android:id="@+id/progressBacaBuku"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="65"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF9800"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentBacaBuku"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentBacaBuku"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="65%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 3: Memasak -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMemasak"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardBacaBuku">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent">
 
-                <!-- Card 5: Musik -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardMusik"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/imgBgMemasak"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_memasak" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14dp">
-
-                        <TextView
-                            android:id="@+id/tvMusikIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🎸 Musik"
-                            android:textColor="#1A1A1A"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvMusikIcon"
-                            android:layout_marginTop="4dp"
-                            android:text="Belum ditambahkan"
-                            android:textColor="#9E9E9E"
-                            android:textSize="12sp" />
-
-                        <ImageButton
-                            android:id="@+id/btnToggleMusik"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@android:drawable/ic_input_add"
-                            app:tint="#2196F3" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Card 6: Melukis -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardMelukis"
-                    android:layout_width="0dp"
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp">
+                    android:background="#66000000" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
-                        <TextView
-                            android:id="@+id/tvMelukisIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🎨 Melukis"
-                            android:textColor="#1A1A1A"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/iconMemasak"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_memasak"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvMelukisIcon"
-                            android:layout_marginTop="4dp"
-                            android:text="Belum ditambahkan"
-                            android:textColor="#9E9E9E"
-                            android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tvTitleMemasak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Memasak"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconMemasak"
+                        app:layout_constraintStart_toEndOf="@+id/iconMemasak"
+                        app:layout_constraintTop_toTopOf="@+id/iconMemasak" />
 
-                        <ImageButton
-                            android:id="@+id/btnToggleMelukis"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:src="@android:drawable/ic_input_add"
-                            app:tint="#2196F3" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/btnRemoveMemasak"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Hapus Aktivitas"
+                        android:src="@drawable/ic_hapus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
 
-        </LinearLayout>
+                    <ProgressBar
+                        android:id="@+id/progressMemasak"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="45"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF9800"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentMemasak"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentMemasak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ================= SEKSI 2: AKTIVITAS LAINNYA ================= -->
+        <TextView
+            android:id="@+id/tvLabelOthers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="Aktivitas Lainnya yang Tersedia"
+            android:textColor="#5A6B82"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardMemasak" />
+
+        <!-- Kartu 4: Fitness (+) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFitness"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelOthers">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgFitness"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_fitness" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconFitness"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_fitness"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleFitness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Fitness"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconFitness"
+                        app:layout_constraintStart_toEndOf="@+id/iconFitness"
+                        app:layout_constraintTop_toTopOf="@+id/iconFitness" />
+
+                    <ImageButton
+                        android:id="@+id/btnToggleFitness"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Tambah Aktivitas"
+                        android:src="@drawable/ic_tambah"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressFitness"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="85"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#00E676"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentFitness"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentFitness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="85%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 5: Menonton (+) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMenonton"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardFitness">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgMenonton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_menonton" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconMenonton"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_menonton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMenonton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Menonton"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconMenonton"
+                        app:layout_constraintStart_toEndOf="@+id/iconMenonton"
+                        app:layout_constraintTop_toTopOf="@+id/iconMenonton" />
+
+                    <ImageButton
+                        android:id="@+id/btnToggleMenonton"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Tambah Aktivitas"
+                        android:src="@drawable/ic_tambah"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressMenonton"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="35"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF5252"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentMenonton"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentMenonton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="35%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 6: Musik (+) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMusik"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardMenonton">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgMusik"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_musik" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconMusik"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_musik"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMusik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Musik"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconMusik"
+                        app:layout_constraintStart_toEndOf="@+id/iconMusik"
+                        app:layout_constraintTop_toTopOf="@+id/iconMusik" />
+
+                    <ImageButton
+                        android:id="@+id/btnToggleMusik"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Tambah Aktivitas"
+                        android:src="@drawable/ic_tambah"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressMusik"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="25"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF5252"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentMusik"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentMusik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 7: Melukis (+) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMelukis"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardMusik">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgMelukis"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_melukis" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconMelukis"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_melukis"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMelukis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Melukis"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconMelukis"
+                        app:layout_constraintStart_toEndOf="@+id/iconMelukis"
+                        app:layout_constraintTop_toTopOf="@+id/iconMelukis" />
+
+                    <ImageButton
+                        android:id="@+id/btnToggleMelukis"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Tambah Aktivitas"
+                        android:src="@drawable/ic_tambah"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressMelukis"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="10"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF5252"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentMelukis"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentMelukis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

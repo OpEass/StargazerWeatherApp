@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Glassmorphism & Text Colors -->
+    <color name="glass_card_bg">#40FFFFFF</color>
+    <color name="glass_card_stroke">#33FFFFFF</color>
+    <color name="text_white_primary">#FFFFFF</color>
+    <color name="text_white_secondary">#D0E4FF</color>
+
+    <!-- Progress Colors -->
+    <color name="progress_high">#34D399</color>   <!-- Hijau -->
+    <color name="progress_medium">#FB923C</color> <!-- Oranye -->
+    <color name="progress_low">#F87171</color>    <!-- Merah -->
+    <color name="progress_bg">#33FFFFFF</color>   <!-- Background Progress Bar Transparan -->
+
 </resources>

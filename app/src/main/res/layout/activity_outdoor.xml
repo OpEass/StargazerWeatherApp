@@ -1,126 +1,500 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="24dp"
-    tools:context=".OutdoorActivity">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
-    <!-- ================= HEADER ================= -->
-    <TextView
-        android:id="@+id/tvTitleOutdoor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Aktivitas Outdoor"
-        android:textColor="#000000"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
-        app:layout_constraintEnd_toStartOf="@+id/btnBack"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnBack" />
-
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@android:drawable/ic_media_previous"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#000000" />
-
-
-    <!-- ================= GRID KARTU AKTIVITAS ================= -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleOutdoor">
+        android:padding="20dp">
 
-        <!-- Baris 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+        <!-- Tombol Kembali -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Kembali"
+            android:padding="2dp"
+            android:src="@drawable/ic_kembali"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#1E293B" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+        <!-- Judul Aktivitas Outdoor (Rapat persis di bawah tombol kembali) -->
+        <TextView
+            android:id="@+id/tvTitleAktivitas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Aktivitas Outdoor"
+            android:textColor="#1E293B"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+        <!-- Pencarian -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSearch"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#F1F5F9"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleAktivitas">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#DCDCDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#DCDCDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="#8E8E93" />
 
-        <!-- Baris 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+                <EditText
+                    android:id="@+id/etSearchActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:hint="Cari Aktivitas"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textColor="#000000"
+                    android:textColorHint="#8E8E93"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#DCDCDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp" />
+        <!-- ================= SEKSI 1: AKTIVITAS YANG DITAMBAHKAN ================= -->
+        <TextView
+            android:id="@+id/tvLabelAdded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Aktivitas yang Ditambahkan"
+            android:textColor="#5A6B82"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardSearch" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#DCDCDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp" />
-        </LinearLayout>
+        <!-- Kartu 1: Jogging -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardJogging"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelAdded">
 
-        <!-- Baris 3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#DCDCDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp" />
+                <ImageView
+                    android:id="@+id/imgBgJogging"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_jogging" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#DCDCDC"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp" />
-        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
 
-    </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/iconJogging"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_jogging"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleJogging"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Jogging"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconJogging"
+                        app:layout_constraintStart_toEndOf="@+id/iconJogging"
+                        app:layout_constraintTop_toTopOf="@+id/iconJogging" />
+
+                    <ImageButton
+                        android:id="@+id/btnRemoveJogging"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Hapus Aktivitas"
+                        android:src="@drawable/ic_hapus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressJogging"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="70"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#00E676"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentJogging"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentJogging"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="70%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 2: Hiking -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardHiking"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardJogging">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgHiking"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_hiking" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconHiking"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_hiking"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleHiking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Hiking"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconHiking"
+                        app:layout_constraintStart_toEndOf="@+id/iconHiking"
+                        app:layout_constraintTop_toTopOf="@+id/iconHiking" />
+
+                    <ImageButton
+                        android:id="@+id/btnRemoveHiking"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Hapus Aktivitas"
+                        android:src="@drawable/ic_hapus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressHiking"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="55"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF9800"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentHiking"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentHiking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="55%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ================= SEKSI 2: AKTIVITAS LAINNYA ================= -->
+        <TextView
+            android:id="@+id/tvLabelOthers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="Aktivitas Lainnya yang Tersedia"
+            android:textColor="#5A6B82"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardHiking" />
+
+        <!-- Kartu 3: Memancing -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMemancing"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelOthers">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgMemancing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_memancing" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconMemancing"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_fishing"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleMemancing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Memancing"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconMemancing"
+                        app:layout_constraintStart_toEndOf="@+id/iconMemancing"
+                        app:layout_constraintTop_toTopOf="@+id/iconMemancing" />
+
+                    <ImageButton
+                        android:id="@+id/btnAddMemancing"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Tambah Aktivitas"
+                        android:src="@drawable/ic_tambah"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressMemancing"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#FF5252"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentMemancing"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentMemancing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kartu 4: Bersepeda -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBersepeda"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardMemancing">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgBgBersepeda"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_bersepeda" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iconBersepeda"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_bersepeda"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvTitleBersepeda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Bersepeda"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/iconBersepeda"
+                        app:layout_constraintStart_toEndOf="@+id/iconBersepeda"
+                        app:layout_constraintTop_toTopOf="@+id/iconBersepeda" />
+
+                    <ImageButton
+                        android:id="@+id/btnAddBersepeda"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Tambah Aktivitas"
+                        android:src="@drawable/ic_tambah"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#FFFFFF" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBersepeda"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:max="100"
+                        android:progress="85"
+                        android:progressBackgroundTint="#80FFFFFF"
+                        android:progressDrawable="@android:drawable/progress_horizontal"
+                        android:progressTint="#00E676"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPercentBersepeda"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPercentBersepeda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="85%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

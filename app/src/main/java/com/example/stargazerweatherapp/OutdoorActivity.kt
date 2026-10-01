@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -13,17 +14,16 @@ class OutdoorActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_outdoor)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tvTitleOutdoor)) { v, insets ->
+        val scrollMain = findViewById<NestedScrollView>(R.id.scrollMain)
+        ViewCompat.setOnApplyWindowInsetsListener(scrollMain) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Hanya memberi padding atas agar judul tidak tertutup status bar baterai
-            v.setPadding(0, systemBars.top, 0, 0)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // --- LOGIKA TOMBOL KEMBALI ---
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
-            finish() // Perintah 'finish()' akan menutup halaman ini dan mengembalikan Anda ke MainActivity
+            finish()
         }
     }
 }
